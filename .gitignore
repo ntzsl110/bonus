@@ -3,3 +3,4 @@ settings.py
 __pycache__/
 __init__.py
 .vscode/
+sh.exe.stackdump
