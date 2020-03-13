@@ -25,8 +25,7 @@ SECRET_KEY = 'lyh&v9+va&2o-pc6g#@_)o--s^mte3laq4yk^illt&c+ilpp8n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -54,7 +53,7 @@ ROOT_URLCONF = 'bonus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,6 +79,19 @@ DATABASES = {
     }
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'performance',
+        'HOST': 'localhost',
+        'USER': 'ntzsl110',
+        'PASSWORD': 'zslyh815',
+        'PORT': '3306',
+        # 'OPTIONS': {
+        #     "init_command": "SET foreign_key_checks = 0;",
+        # }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -103,18 +115,32 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LOGIN_URL = '/login/'
 
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'zh-hans'
+
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+SAFE_URL = [
+    r'^/$', '/login/', '/logout', '/index/', '/media/', '/admin/', '/ckeditor/',
+    '/welcome/'
+]
+
+SESSION_COOKIE_AGE = 60 * 20  # session有效时间为20分钟
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器Cookie失效
+SESSION_SAVE_EVERY_REQUEST = True  # 以上两个配置需要配合这一条才能够生效
